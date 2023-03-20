@@ -1,0 +1,83 @@
+k = int(input("(2-9)"))
+if not (2<= k <=9):
+    quit()
+a=0
+min_num = 101
+filename = input("Введите имя файла: ")
+with open(filename, "r") as file:
+    buffer = ""
+    while True:
+        text = file.read(1024)
+        if not text:
+            break 
+
+        for i in range(len(text)):
+            if text[i].isdigit():
+                buffer += text[i]
+            elif buffer:
+                num = int(buffer)
+                if num % 2 !=0:
+                    if min_num > num:
+                        min_num = num
+                    print(num)
+                    x = ''
+                    while num > 0:
+                        x = str(num % k) + x
+                        num //= k
+                    print(x,'код')
+                    a += 1
+                    print(a, '-----------------------------------Номер операции')
+                buffer = ""
+    if buffer:
+        num = int(buffer)
+        if num % 2 !=0:
+            if min_num > num:
+                min_num = num
+            print(num)
+            x=''
+            while num > 0:
+                x = str(num %k) +x
+                num //= k
+            print(x,'код')
+            a=a+1
+            print (a,'-----------------------------------Номер операции')
+
+dict = {
+    0: 'ноль',
+    1: 'один',
+    2: 'два',
+    3: 'три',
+    4: 'четыре',
+    5: 'пять',
+    6: 'шесть',
+    7: 'семь',
+    8: 'восемь',
+    9: 'девять',
+    10: 'десять',
+    11: 'одиннадцать',
+    12: 'двенадцать',
+    13: 'тринадцать',
+    14: 'четырнадцать',
+    15: 'пятнадцать',
+    16: 'шестнадцать',
+    17: 'семнадцать',
+    18: 'восемнадцать',
+    19: 'девятнадцать',
+    20: 'двадцать',
+    30: 'тридцать',
+    40: 'сорок',
+    50: 'пятьдесят',
+    60: 'шестьдесят',
+    70: 'семьдесят',
+    80: 'восемьдесят',
+    90: 'девяносто',
+    100: 'сто'
+}
+for i in range(21, 100):
+    if i not in dict:
+        if i % 10 == 0:
+            dict[i] = dict[i - i % 10] + ' ' + dict[i % 10]
+        else:
+            dict[i] = dict[i - i % 10] + ' ' + dict[i % 10].lower()
+
+print(dict[min_num], 'Минимум')
