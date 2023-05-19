@@ -1,7 +1,8 @@
+# 17.	F(1) = 1, F(n) = F(n–1) * (n + n!), при четных n > 1 F(n)=sin(n) при нечетных n > 1
 import time
 import matplotlib.pyplot as plt
 from math import sin
-# Рекурсивное вычисление F(n)
+
 def recursive_F(n):
     if n == 1:
         return 1
@@ -10,7 +11,7 @@ def recursive_F(n):
     else:
         return sin(n)
 
-# Итерационное вычисление F(n)
+
 def iterative_F(n):
     if n == 1:
         return 1
@@ -22,17 +23,17 @@ def iterative_F(n):
             result = sin(i)
     return result
 
-# Функция для вычисления факториала
+
 def factorial(n):
     if n == 0:
         return 1
     else:
         return n * factorial(n-1)
 
-# Задаем значение n
+
 n = 50
 
-# Вычисляем значение рекуррентной функции рекурсивным методом
+
 start_time = time.perf_counter()
 recursive_result = recursive_F(n)
 recursive_time = time.perf_counter() - start_time
@@ -40,12 +41,12 @@ start_time = time.perf_counter()
 iterative_result = iterative_F(n)
 iterative_time = time.perf_counter() - start_time
     
-# Выводим результаты
+
 print("Значение рекуррентной функции для n =", n)
 print("Рекурсивный подход:", recursive_result, "Время выполнения:", recursive_time)
 print("Итерационный подход:", iterative_result, "Время выполнения:", iterative_time)
 
-# Строим график зависимости времени выполнения от n
+
 recursive_times = []
 iterative_times = []
 ns = []
