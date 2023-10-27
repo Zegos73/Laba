@@ -23,6 +23,7 @@ def login():
     if username and password:
         if username in user_database and user_database[username] == password:
             messagebox.showinfo("Вход выполнен успешно", f"Добро пожаловать, {username}!")
+            root.withdraw()
         else:
             messagebox.showerror("Ошибка входа", "Неправильное имя пользователя или пароль.")
     else:
