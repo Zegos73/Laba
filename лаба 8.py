@@ -25,23 +25,31 @@ def count_odd_points_on_line(line_points):
     return len(odd_points)
 
 def process_points():
-    points_str = entry.get()
-    points_list = eval(points_str)
-    
-    max_points_on_line = 0
-    max_line_points = []
+    points_str = entry.get().strip()
 
-    for i in range(2, len(points_list) + 1):
-        for comb in generate_combinations(points_list, i):
-            line_points = list(comb)
-            if all(point[0] % 2 != 0 and point[1] % 2 != 0 for point in line_points):
-                if are_points_on_line(line_points):
-                    odd_points_count = count_odd_points_on_line(line_points)
-                    if odd_points_count > max_points_on_line:
-                        max_points_on_line = odd_points_count
-                        max_line_points = line_points
+    if not points_str:
+        result_str = "Образец ввода координат точек: (x, y), (x, y), (x, y),..."
+    else:
+        points_list = eval(points_str)
 
-    result_str = f"Точки {max_line_points} лежат на одной прямой и содержат максимальное количество точек с нечетными координатами: {max_points_on_line}"
+        if len(points_list) < 3:
+            result_str = "Пожалуйста, введите не менее 3-х точек."
+        else:
+            max_points_on_line = 0
+            max_line_points = []
+
+            for i in range(2, len(points_list) + 1):
+                for comb in generate_combinations(points_list, i):
+                    line_points = list(comb)
+                    if all(point[0] % 2 != 0 and point[1] % 2 != 0 for point in line_points):
+                        if are_points_on_line(line_points):
+                            odd_points_count = count_odd_points_on_line(line_points)
+                            if odd_points_count > max_points_on_line:
+                                max_points_on_line = odd_points_count
+                                max_line_points = line_points
+
+            result_str = f"Точки {max_line_points} лежат на одной прямой и содержат максимальное количество точек с нечетными координатами: {max_points_on_line}"
+
     output_entry.delete(0, tk.END)
     output_entry.insert(0, result_str)
 
@@ -51,7 +59,7 @@ root.title("Проверка точек на прямую")
 input_frame = tk.Frame(root)
 input_frame.pack(pady=10)
 
-label = tk.Label(input_frame, text="Введите точки (x, y):")
+label = tk.Label(input_frame, text="Введите координаты не менее 3-х точек (x, y):")
 label.pack(side=tk.LEFT)
 
 entry = tk.Entry(input_frame, width=50)
