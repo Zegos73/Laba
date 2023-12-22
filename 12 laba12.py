@@ -4,16 +4,7 @@ import numpy as np
 import math
 import random
 # Количество знаков после запятой
-while True:
-    t = input("Введите количество знаков после запятой при вычислении неточности : ")
-    if t.isdigit():
-        if int(t) == 0:
-            print("Вы ввели ноль. Введите другое число")
-        else:
-            t = int(t)
-            break
-    else:
-        print("Вы должны были ввести натуральное число")
+t = int(input("Введите количество знаков после запятой: "))
 # Генерация матрицы случайным образом 
 k = random.randint(1,4)
 x = np.random.uniform(-1, 1, size=(k, k))
