@@ -1,5 +1,6 @@
-#(-1)n-1(|х(2n+1)|)/(2n+1)!
+#|х*n!|/n!
 #У алгоритма д.б. линейная сложность.
+#Знак первого слагаемого  -.
 import numpy as np
 import math
 import random
@@ -20,23 +21,25 @@ x = np.random.uniform(-1, 1, size=(k, k))
 print(f"Матрица: \n{x}")
 #Определитель
 print(f"Определитель: {np.linalg.det(x)}")
-# Вычисление нормы матрицы x
-norm_x = np.linalg.norm(x)
 #вычисление суммы знакопеременного ряда
 n = 1
-s = 10 ** (-t)
-sum_result = 0
+result = 0
+sign = -1
+before_digit = 0
+accuracy = 1
+fact_denominator = 1
+fact_numerator = 1
 
-while True:
-    fact_denominator = math.factorial(2 * n - 1)
-    term = ((-1) ** (n - 1)) * (abs(norm_x) ** (2 * n - 1)) / fact_denominator
-    sum_result += term
-
-    if abs(term) < s:
-        break
-
+while abs(accuracy) > (0.1 ** t):
+    before_digit += result
+    fact_numerator *= (n - 1) * (n)
+    fact_denominator *= (n - 1) * (n)
+    result += sign * np.linalg.det(x * fact_numerator) / fact_denominator
     n += 1
+    accuracy = abs(before_digit - result)
+    before_digit = 0
+    sign *= -1
 
 # Вывод результатов
-print(f"Итоговая сумма ряда: {sum_result:.{t}f}")
+print(f"Итоговая сумма ряда: {result:.{t}f}")
 print(f"Количество итераций: {n-1}")
